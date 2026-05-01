@@ -1,0 +1,7 @@
+Info: Starting Quartus Timing Analyzer
+Info: Reading post-fit netlist
+Warning: Timing violation detected on clock clk
+Error: Setup slack is negative on path from reg_a to reg_b
+Error: Worst negative slack: -1.245 ns
+Info: Failing path includes alu_result, mux_out, and next_state_logic
+Info: Timing analysis completed with violations

@@ -1,0 +1,6 @@
+Info: Starting Quartus compilation
+Info: Analyzing Verilog file top_module.v
+Warning: Width mismatch in assignment at alu.v line 24
+Warning: Signal result expects 8 bits but expression provides 4 bits
+Error: Port data_in of module alu_core expects 8 bits but connected signal sw_input has 4 bits
+Info: Compilation stopped due to errors

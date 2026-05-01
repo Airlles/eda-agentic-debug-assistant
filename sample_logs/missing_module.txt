@@ -1,0 +1,6 @@
+Info: Starting ModelSim compilation
+Info: Compiling top_module.v
+Error: Module not found: alu_core
+Error: Cannot find module definition for instance u_alu
+Warning: Design unit top_module depends on missing module alu_core
+Info: Compilation failed

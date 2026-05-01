@@ -1,0 +1,6 @@
+Info: Starting Verilog elaboration
+Info: Analyzing file top_module.v
+Warning: Net temp_result is declared but never driven
+Warning: Output port done is unconnected in instance u_controller
+Error: Signal data_valid is undriven and has no source driver
+Info: Elaboration completed with warnings and errors
