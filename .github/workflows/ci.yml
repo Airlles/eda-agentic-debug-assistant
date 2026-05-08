@@ -19,14 +19,25 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Show project files
+        run: |
+          pwd
+          ls -la
+          echo "sample_logs:"
+          ls -la sample_logs || true
+
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          python -m pip install -r requirements.txt
 
       - name: Check Python syntax
         run: |
-          python -m py_compile agent.py mcp_server.py rag.py
+          python -m py_compile agent.py mcp_server.py rag.py app.py
+
+      - name: Create output folder
+        run: |
+          mkdir -p outputs
 
       - name: Run agent smoke test
         run: |
@@ -35,3 +46,20 @@ jobs:
       - name: Verify report was generated
         run: |
           test -f outputs/width_mismatch_report.md
+
+      - name: Run FastAPI smoke test
+        run: |
+          python - <<'EOF'
+          from app import debug_log, LogRequest
+
+          request = LogRequest(
+              log_text="Warning: Width mismatch in assignment at alu.v line 24\nError: Port data_in expects 8 bits but connected signal has 4 bits"
+          )
+
+          result = debug_log(request)
+
+          assert result["issue_type"] == "WIDTH_MISMATCH"
+          assert "markdown_report" in result
+
+          print("FastAPI smoke test passed")
+          EOF

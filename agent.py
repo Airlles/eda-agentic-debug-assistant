@@ -4,12 +4,11 @@ from mcp_server import parse_eda_log, retrieve_debug_context
 
 def analyze_log(log_text):
     parsed_result = parse_eda_log(log_text)
-
     issue_type = parsed_result["issue_type"]
-
     retrieved_context = retrieve_debug_context(issue_type)
 
     return parsed_result, retrieved_context
+
 
 def generate_debug_report(parsed_result, retrieved_context):
     issue_type = parsed_result["issue_type"]
@@ -42,6 +41,20 @@ def generate_debug_report(parsed_result, retrieved_context):
 
     return report
 
+
+def generate_debug_report_from_text(log_text):
+    parsed_result, retrieved_context = analyze_log(log_text)
+    markdown_report = generate_debug_report(parsed_result, retrieved_context)
+
+    return {
+        "issue_type": parsed_result["issue_type"],
+        "errors": parsed_result["errors"],
+        "warnings": parsed_result["warnings"],
+        "retrieved_context": retrieved_context,
+        "markdown_report": markdown_report
+    }
+
+
 if __name__ == "__main__":
     available_files = []
 
@@ -65,7 +78,10 @@ if __name__ == "__main__":
 
     report = generate_debug_report(parsed_result, retrieved_context)
 
+    os.makedirs("outputs", exist_ok=True)
+
     report_file_name = selected_file.replace(".txt", "_report.md")
+    os.makedirs("outputs", exist_ok=True)
     output_path = os.path.join("outputs", report_file_name)
 
     with open(output_path, "w") as file:

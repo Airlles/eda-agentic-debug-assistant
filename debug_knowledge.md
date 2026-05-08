@@ -113,5 +113,5 @@ Debug steps:
 
 Files to inspect:
 1. Verilog source file mentioned in the error
-2. Nearby lines before the reported error# RTL and EDA Debug Knowledge Base
+2. Nearby lines before the reported error
 

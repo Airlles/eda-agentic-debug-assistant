@@ -1,7 +1,8 @@
 def load_knowledge_base(file_path):
-  with open(file_path, "r") as file:
-    knowledge_text = file.read()
-  return knowledge_text
+    with open(file_path, "r") as file:
+        knowledge_text = file.read()
+    return knowledge_text
+
 
 def split_into_sections(knowledge_text):
     raw_sections = knowledge_text.split("\n\n## ")
@@ -16,20 +17,18 @@ def split_into_sections(knowledge_text):
 
     return sections
 
+
 def retrieve_context(issue_type, knowledge_file="debug_knowledge.md"):
-   knowledge_text = load_knowledge_base(knowledge_file)
-   sections = split_into_sections(knowledge_text)
+    knowledge_text = load_knowledge_base(knowledge_file)
+    sections = split_into_sections(knowledge_text)
 
-   for section in sections:
-      section_title = section.splitlines()[0]
+    for section in sections:
+        section_title = section.splitlines()[0].strip()
 
-      if section_title == issue_type:
-        return section
-      
+        if section_title == issue_type:
+            return section
 
-
-
-
+    return "No matching debug context found for this issue type."
 
 
 if __name__ == "__main__":
